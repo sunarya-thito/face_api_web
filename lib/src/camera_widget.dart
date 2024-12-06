@@ -64,7 +64,7 @@ class CameraSession {
 
   CameraSession(this.stream, this.videoElement);
 
-  Uint8List capture({Rect? relativeRect}) {
+  Uint8List capture({Rect? relativeRect, Rect? expand}) {
     var canvas = web.HTMLCanvasElement();
     if (relativeRect != null) {
       canvas.width = (relativeRect.width * videoElement.videoWidth).toInt();
@@ -88,6 +88,12 @@ class CameraSession {
       y = 0;
       width = videoElement.videoWidth.toDouble();
       height = videoElement.videoHeight.toDouble();
+    }
+    if (expand != null) {
+      x -= expand.left;
+      y -= expand.top;
+      width += expand.left + expand.right;
+      height += expand.top + expand.bottom;
     }
     context.drawImage(
         videoElement, x, y, width, height, 0, 0, canvas.width, canvas.height);
