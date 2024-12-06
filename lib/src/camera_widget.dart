@@ -92,8 +92,8 @@ class CameraSession {
     if (expand != null) {
       x -= expand.left;
       y -= expand.top;
-      width += expand.left + expand.right;
-      height += expand.top + expand.bottom;
+      width += expand.width;
+      height += expand.height;
     }
     context.drawImage(
         videoElement, x, y, width, height, 0, 0, canvas.width, canvas.height);
